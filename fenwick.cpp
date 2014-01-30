@@ -5,6 +5,8 @@
 *
 * Comments: Note the difference uses of i in the input,
 *           and how they must be offset differently.
+* 
+* Submission 2: Allowing for values greater than INT_MAX
 */
 
 #include <cstdio>
@@ -13,17 +15,17 @@
 using namespace std;
 
 class FenwickTree{
-        vector<int> ft;
+        vector<long long> ft;
         int LSOne(int i) {return i & -i;};
     public:
         FenwickTree(int n) : ft(n+1, 0){};
-        int sum(int b) {
-            int sum = 0; 
+        long long sum(int b) {
+            long long sum = 0; 
             for (; b; b -= LSOne(b)) 
                 sum += ft[b];
             return sum;
         }
-        int sum(int a, int b) { return sum(b) - (a == 1 ? 0 : sum(a - 1)); }
+        long long sum(int a, int b) { return sum(b) - (a == 1 ? 0 : sum(a - 1)); }
         void add(int k, int v) {
             for (; k < (int)ft.size(); k += LSOne(k))
                 ft[k] += v; 
@@ -45,7 +47,7 @@ int main(int argc, char* argv[]){
         }
         else{
             scanf("%d", &i);
-            printf("%d\n", ft.sum(i));
+            printf("%lld\n", ft.sum(i));
         }
     }
         
